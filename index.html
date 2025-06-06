@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kursus Bahasa Inggris untuk Batita</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Mengatur font Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Warna latar belakang lembut */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 800px;
+            width: 95%; /* Fluid width */
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-radius: 20px; /* Sudut membulat */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .level-button, .theme-button, .nav-button, .audio-button {
+            padding: 1rem 1.5rem;
+            border-radius: 12px; /* Sudut membulat pada tombol */
+            font-weight: 600;
+            font-size: 1.125rem; /* Ukuran font yang lebih besar */
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .level-button:hover, .theme-button:hover, .nav-button:hover, .audio-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        .level-button {
+            background-color: #6200EE; /* Ungu gelap */
+            color: white;
+            box-shadow: 0 4px 0 #3700B3; /* Bayangan tombol */
+        }
+        .level-button:active {
+            transform: translateY(0);
+            box-shadow: 0 0 0;
+        }
+        .theme-button {
+            background-color: #03DAC6; /* Hijau toska */
+            color: #333;
+            box-shadow: 0 4px 0 #018786;
+        }
+        .theme-button:active {
+            transform: translateY(0);
+            box-shadow: 0 0 0;
+        }
+        .nav-button {
+            background-color: #BB86FC; /* Ungu muda */
+            color: #333;
+            box-shadow: 0 4px 0 #9F59D1;
+        }
+        .nav-button:active {
+            transform: translateY(0);
+            box-shadow: 0 0 0;
+        }
+        .audio-button {
+            background-color: #FFDE03; /* Kuning cerah */
+            color: #333;
+            box-shadow: 0 4px 0 #FFAB00;
+        }
+        .audio-button:active {
+            transform: translateY(0);
+            box-shadow: 0 0 0;
+        }
+        .display-card {
+            background-color: #e0f2f7; /* Biru muda */
+            border-radius: 15px;
+            padding: 2rem;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .english-word {
+            font-size: 3.5rem; /* Ukuran font sangat besar untuk keterbacaan anak */
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .indonesian-translation {
+            font-size: 1.5rem;
+            color: #555;
+            margin-top: 0.5rem;
+        }
+        /* Styling untuk elemen gambar (jika digunakan) */
+        .icon-image {
+            width: 128px; /* Ukuran gambar ikon */
+            height: 128px;
+            object-fit: contain; /* Memastikan gambar tidak terdistorsi */
+            border-radius: 8px; /* Sudut membulat pada gambar */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Bayangan lembut pada gambar */
+            margin-bottom: 1rem;
+        }
+        /* Mengatur styling untuk ikon emoji */
+        .icon {
+            font-size: 4rem; /* Ukuran ikon besar */
+            margin-bottom: 1rem;
+        }
+
+        /* Responsif untuk layar kecil */
+        @media (max-width: 640px) {
+            .container {
+                padding: 1rem;
+                gap: 1rem;
+            }
+            .level-button, .theme-button, .nav-button, .audio-button {
+                font-size: 1rem;
+                padding: 0.75rem 1rem;
+            }
+            .english-word {
+                font-size: 2.5rem;
+            }
+            .indonesian-translation {
+                font-size: 1.2rem;
+            }
+            .icon-image {
+                width: 96px;
+                height: 96px;
+            }
+            .icon {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body class="font-inter">
+    <div id="app" class="container">
+        <!-- Bagian pemilihan level -->
+        <div id="level-selection">
+            <h2 class="text-2xl font-bold text-gray-800 col-span-full mb-4">Pilih Level</h2>
+            <div id="level-buttons" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Tombol level akan di-generate oleh JavaScript -->
+            </div>
+        </div>
+
+        <!-- Bagian pemilihan tema -->
+        <div id="theme-selection" class="hidden">
+            <h2 id="level-title" class="text-2xl font-bold text-gray-800 col-span-full mb-4"></h2>
+            <div id="theme-buttons" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Tombol tema akan di-generate oleh JavaScript -->
+            </div>
+            <button id="back-to-levels-btn" class="level-button bg-gray-500 hover:bg-gray-600 mt-6 mx-auto w-full max-w-xs">Kembali ke Level</button>
+        </div>
+
+        <!-- Bagian pembelajaran kata -->
+        <div id="word-display" class="hidden">
+            <h2 id="current-theme-title" class="text-2xl font-bold text-gray-800 mb-4"></h2>
+            <div class="display-card">
+                <!-- Tempat untuk ikon emoji atau gambar -->
+                <div id="visual-display-area" class="w-32 h-32 flex items-center justify-center"></div>
+                <div id="current-english-word" class="english-word"></div>
+                <div id="current-indonesian-translation" class="indonesian-translation"></div>
+            </div>
+            <div class="flex justify-center gap-4 mt-6">
+                <button id="prev-btn" class="nav-button">⬅️ BACK</button>
+                <button id="audio-btn" class="audio-button">📣 LISTEN</button>
+                <button id="next-btn" class="nav-button">NEXT ➡️</button>
+            </div>
+            <button id="back-to-themes-btn" class="theme-button bg-gray-500 hover:bg-gray-600 mt-6 mx-auto w-full max-w-xs">Kembali ke Tema</button>
+        </div>
+    </div>
+
+    <script>
+        // Data kursus terstruktur berdasarkan level dan tema
+        const courseLevels = {
+            level1: {
+                title: "Level 1: Basic Words (Ages 1-2)",
+                themes: {
+                    greetings: {
+                        title: "Greetings & Magic Words",
+                        words: [
+                            { english: "Good morning!", indonesian: "Selamat Pagi!", icon: "☀️" },
+                            { english: "Hello!", indonesian: "Halo!", icon: "👋" },
+                            { english: "Good night!", indonesian: "Selamat Malam!", icon: "😴" },
+                            { english: "Please", indonesian: "Tolong", icon: "🙏" },
+                            { english: "Thank you", indonesian: "Terima Kasih", icon: "😊" },
+                            { english: "Yes", indonesian: "Ya", icon: "👍" },
+                            { english: "No", indonesian: "Tidak", icon: "👎" }
+                        ]
+                    },
+                    family: {
+                        title: "My Family & Loving Words",
+                        words: [
+                            { english: "Grandma", indonesian: “Oma”, icon: "👵" },
+                            { english: "Grandpa", indonesian: "Kakek", icon: "👴" },
+                            { english: "Mommy", indonesian: "Ibu", icon: "👩" },
+                            { english: "Daddy", indonesian: "Ayah", icon: "👨" },
+                            { english: "Baby", indonesian: "Bayi", icon: "👶" },
+                            { english: "I love you!", indonesian: "Aku sayang kamu!", icon: "💖" }
+                        ]
+                    },
+                    objects: {
+                        title: "Objects Around Us",
+                        words: [
+                            { english: "Ball", indonesian: "Bola", icon: "⚽" },
+                            { english: "Teddy bear", indonesian: "Boneka Beruang", icon: "🐻" },
+                            { english: "Book", indonesian: "Buku", icon: "📖" },
+                            { english: "Car", indonesian: "Mobil", icon: "🚗" },
+                            { english: "Water", indonesian: "Air", icon: "💧" },
+                            { english: "Milk", indonesian: "Susu", icon: "🥛" }
+                        ]
+                    }
+                }
+            },
+            level2: {
+                title: "Level 2: More Words (Ages 2-3)",
+                themes: {
+                    colors: {
+                        title: "Colors",
+                        words: [
+                            { english: "Red", indonesian: "Merah", icon: "🔴" },
+                            { english: "Blue", indonesian: "Biru", icon: "🔵" },
+                            { english: "Green", indonesian: "Hijau", icon: "🟢" },
+                            { english: "Yellow", indonesian: "Kuning", icon: "🟡" },
+                            { english: "Black", indonesian: "Hitam", icon: "⚫" },
+                            { english: "White", indonesian: "Putih", icon: "⚪" }
+                        ]
+                    },
+                    numbers: {
+                        title: "Numbers (1-10)",
+                        words: [
+                            { english: "One", indonesian: "Satu", icon: "1️⃣" },
+                            { english: "Two", indonesian: "Dua", icon: "2️⃣" },
+                            { english: "Three", indonesian: "Tiga", icon: "3️⃣" },
+                            { english: "Four", indonesian: "Empat", icon: "4️⃣" },
+                            { english: "Five", indonesian: "Lima", icon: "5️⃣" },
+                            { english: "Six", indonesian: "Enam", icon: "6️⃣" },
+                            { english: "Seven", indonesian: "Tujuh", icon: "7️⃣" },
+                            { english: "Eight", indonesian: "Delapan", icon: "8️⃣" },
+                            { english: "Nine", indonesian: "Sembilan", icon: "9️⃣" },
+                            { english: "Ten", indonesian: "Sepuluh", icon: "🔟" }
+                        ]
+                    },
+                    animals: {
+                        title: "Animals",
+                        words: [
+                            { english: "Dog", indonesian: "Anjing", icon: "🐶" },
+                            { english: "Cat", indonesian: "Kucing", icon: "🐱" },
+                            { english: "Bird", indonesian: "Burung", icon: "🐦" },
+                            { english: "Fish", indonesian: "Ikan", icon: "🐟" },
+                            { english: "Cow", indonesian: "Sapi", icon: "🐮" },
+                            { english: "Chicken", indonesian: "Ayam", icon: "🐥" },
+                        ]
+                    }
+                }
+            },
+            level3: {
+                title: "Level 3: Simple Phrases (Ages 3+)",
+                themes: {
+                    actions: {
+                        title: "Actions & Activities",
+                        words: [
+                            { english: "Sleep", indonesian: "Tidur", icon: "😴" },
+                            { english: "Eat", indonesian: "Makan", icon: "🍽️" },
+                            { english: "Play", indonesian: "Bermain", icon: "🧸" },
+                            { english: "Come!", indonesian: “Mari Sini!", icon: "👉" },
+                            { english: "Go", indonesian: "Jalan", icon: "🚶" },
+                            { english: "Run", indonesian: "Lari", icon: "🏃‍♀️" },
+                            { english: "Let's go!", indonesian: "Ayok kita pergi!”, icon: "👋" }
+                        ]
+                    },
+                    feelings: {
+                        title: "Feelings & Expressions",
+                        words: [
+                            { english: "Happy", indonesian: "Senang", icon: "😄" },
+                            { english: "Sad", indonesian: "Sedih", icon: "😔" },
+                            { english: "Angry", indonesian: "Marah", icon: "😡" },
+                            { english: "Scared", indonesian: "Takut", icon: "😱" },
+                            { english: "Hungry", indonesian: "Lapar", icon: "😋" },
+                            { english: "Thirsty", indonesian: "Haus", icon: "💧" }
+                        ]
+                    },
+                    questions: {
+                        title: "Simple Questions",
+                        words: [
+                            { english: "What's this?", indonesian: "Apa ini?", icon: "❓" },
+                            { english: "Who?", indonesian: "Siapa?", icon: "👤" },
+                            { english: "Where?", indonesian: "Di mana?", icon: "🗺️" },
+                            { english: "Why?", indonesian: "Mengapa?", icon: "🤔" },
+                            { english: "How are you?", indonesian: "Apa kabar?", icon: "😊" }
+                        ]
+                    }
+                }
+            }
+        };
+
+        // Elemen DOM
+        const levelSelectionDiv = document.getElementById('level-selection');
+        const levelButtonsContainer = document.getElementById('level-buttons');
+        const themeSelectionDiv = document.getElementById('theme-selection');
+        const levelTitleElement = document.getElementById('level-title');
+        const themeButtonsContainer = document.getElementById('theme-buttons');
+        const wordDisplayDiv = document.getElementById('word-display');
+        const currentThemeTitle = document.getElementById('current-theme-title');
+        const visualDisplayArea = document.getElementById('visual-display-area'); // Area untuk visual
+        const currentEnglishWord = document.getElementById('current-english-word'); // Diubah dari german-word
+        const currentIndonesianTranslation = document.getElementById('current-indonesian-translation');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const audioBtn = document.getElementById('audio-btn');
+        const backToLevelsBtn = document.getElementById('back-to-levels-btn');
+        const backToThemesBtn = document.getElementById('back-to-themes-btn');
+
+        // Variabel state aplikasi
+        let currentSelectedLevelId = null;
+        let currentTheme = null;
+        let currentIndex = 0;
+        let wordsInCurrentTheme = [];
+
+        // Fungsi untuk men-generate dan menampilkan tombol level
+        function displayLevelSelection() {
+            levelButtonsContainer.innerHTML = ''; // Kosongkan tombol yang ada
+            for (const levelId in courseLevels) {
+                const levelData = courseLevels[levelId];
+                const button = document.createElement('button');
+                button.id = `${levelId}-btn`;
+                button.className = 'level-button';
+                button.textContent = levelData.title;
+                button.addEventListener('click', () => selectLevel(levelId));
+                levelButtonsContainer.appendChild(button);
+            }
+            levelSelectionDiv.classList.remove('hidden');
+            themeSelectionDiv.classList.add('hidden');
+            wordDisplayDiv.classList.add('hidden');
+        }
+
+        // Fungsi untuk memilih level dan menampilkan tema-tema di dalamnya
+        function selectLevel(levelId) {
+            currentSelectedLevelId = levelId;
+            const levelData = courseLevels[levelId];
+            levelTitleElement.textContent = levelData.title; // Perbarui judul level
+            themeButtonsContainer.innerHTML = ''; // Kosongkan tombol tema yang ada
+
+            for (const themeId in levelData.themes) {
+                const themeData = levelData.themes[themeId];
+                const button = document.createElement('button');
+                button.id = `${themeId}-theme-btn`;
+                button.className = 'theme-button';
+                // Tampilkan ikon di tombol tema, tidak perlu logik khusus untuk keluarga
+                button.textContent = `${themeData.icon || ''} ${themeData.title}`;
+                button.addEventListener('click', () => selectTheme(themeData));
+                themeButtonsContainer.appendChild(button);
+            }
+            levelSelectionDiv.classList.add('hidden');
+            themeSelectionDiv.classList.remove('hidden');
+        }
+
+        // Fungsi untuk menampilkan kata saat ini
+        function displayCurrentWord() {
+            if (wordsInCurrentTheme.length === 0) return;
+
+            const wordData = wordsInCurrentTheme[currentIndex];
+            visualDisplayArea.innerHTML = ''; // Hapus visual lama (emoji atau gambar)
+
+            // Log untuk debug, menampilkan visual data (ikon atau URL gambar jika ada)
+            console.log("Mencoba memuat visual untuk:", wordData.english, "- Visual Data:", wordData.imageUrl || wordData.icon);
+
+            if (wordData.imageUrl) {
+                // Jika ada imageUrl, tampilkan sebagai gambar
+                const imgElement = document.createElement('img');
+                imgElement.src = wordData.imageUrl;
+                imgElement.alt = wordData.indonesian;
+                imgElement.className = 'icon-image';
+                imgElement.onerror = function() {
+                    this.onerror = null;
+                    this.src = 'https://placehold.co/128x128/CCCCCC/000000?text=Image+Not+Found';
+                    console.error("Gagal memuat gambar: " + wordData.imageUrl + ". Pastikan URL benar dan gambar publik.");
+                };
+                visualDisplayArea.appendChild(imgElement);
+            } else if (wordData.icon) {
+                // Jika ada icon (emoji), tampilkan sebagai teks
+                const iconSpan = document.createElement('span');
+                iconSpan.className = 'icon'; // Gunakan kelas 'icon' untuk styling emoji
+                iconSpan.textContent = wordData.icon;
+                visualDisplayArea.appendChild(iconSpan);
+            }
+
+            currentEnglishWord.textContent = wordData.english;
+            currentIndonesianTranslation.textContent = wordData.indonesian;
+
+            // Memastikan tombol navigasi aktif/nonaktif sesuai indeks
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === wordsInCurrentTheme.length - 1;
+
+            // Putar audio secara otomatis saat kata ditampilkan
+            speakEnglishWord(currentEnglishWord.textContent);
+        }
+
+        // Fungsi untuk memilih tema dan menampilkan kata-katanya
+        function selectTheme(themeData) {
+            currentTheme = themeData;
+            wordsInCurrentTheme = currentTheme.words;
+            currentIndex = 0; // Mulai dari kata pertama
+            currentThemeTitle.textContent = currentTheme.title; // Perbarui judul tema
+
+            displayCurrentWord();
+            themeSelectionDiv.classList.add('hidden'); // Sembunyikan pemilihan tema
+            wordDisplayDiv.classList.remove('hidden'); // Tampilkan tampilan kata
+        }
+
+        // Fungsi untuk memutar audio kata Inggris
+        function speakEnglishWord(text) {
+            try {
+                const utterance = new SpeechSynthesisUtterance(text);
+                const voices = window.speechSynthesis.getVoices();
+                const englishVoice = voices.find(voice => voice.lang === 'en-US' || voice.lang.startsWith('en'));
+                if (englishVoice) {
+                    utterance.voice = englishVoice;
+                } else {
+                    utterance.lang = 'en-US'; // Fallback jika suara Inggris tidak ditemukan
+                }
+                window.speechSynthesis.speak(utterance);
+            } catch (error) {
+                console.error("Gagal memutar suara:", error);
+            }
+        }
+
+        // Event listener untuk tombol 'Sebelumnya'
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                displayCurrentWord();
+            }
+        });
+
+        // Event listener untuk tombol 'Selanjutnya'
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < wordsInCurrentTheme.length - 1) {
+                currentIndex++;
+                displayCurrentWord();
+            }
+        });
+
+        // Event listener untuk tombol 'Dengarkan'
+        audioBtn.addEventListener('click', () => {
+            if (currentEnglishWord.textContent) {
+                speakEnglishWord(currentEnglishWord.textContent);
+            }
+        });
+
+        // Event listener untuk tombol 'Kembali ke Tema' (dari tampilan kata)
+        backToThemesBtn.addEventListener('click', () => {
+            wordDisplayDiv.classList.add('hidden'); // Sembunyikan tampilan kata
+            selectLevel(currentSelectedLevelId); // Kembali ke pemilihan tema untuk level saat ini
+        });
+
+        // Event listener untuk tombol 'Kembali ke Level' (dari tampilan tema)
+        backToLevelsBtn.addEventListener('click', () => {
+            currentSelectedLevelId = null;
+            displayLevelSelection(); // Kembali ke pemilihan level
+        });
+
+        // Inisialisasi tampilan saat aplikasi dimuat
+        window.onload = function() {
+            displayLevelSelection();
+        };
+
+        // Pre-fetch voices for faster speech synthesis
+        window.speechSynthesis.onvoiceschanged = () => {
+            // Voices are loaded, no action needed here, but this ensures they are available
+            // when speakEnglishWord is called.
+        };
+    </script>
+</body>
+</html>
+
