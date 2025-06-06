@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kursus Bahasa Inggris untuk Batita</title>
+    <title>Kursus Bahasa Inggris Multi-Level</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -152,7 +152,7 @@
     <div id="app" class="container">
         <!-- Bagian pemilihan level -->
         <div id="level-selection">
-            <h2 class="text-2xl font-bold text-gray-800 col-span-full mb-4">Pilih Level</h2>
+            <h2 class="text-2xl font-bold text-gray-800 col-span-full mb-4">Pilih Level Belajar</h2>
             <div id="level-buttons" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Tombol level akan di-generate oleh JavaScript -->
             </div>
@@ -177,9 +177,9 @@
                 <div id="current-indonesian-translation" class="indonesian-translation"></div>
             </div>
             <div class="flex justify-center gap-4 mt-6">
-                <button id="prev-btn" class="nav-button">⬅️ BACK</button>
-                <button id="audio-btn" class="audio-button">📣 LISTEN</button>
-                <button id="next-btn" class="nav-button">NEXT ➡️</button>
+                <button id="prev-btn" class="nav-button">← Sebelumnya</button>
+                <button id="audio-btn" class="audio-button">🔊 Dengarkan</button>
+                <button id="next-btn" class="nav-button">Selanjutnya →</button>
             </div>
             <button id="back-to-themes-btn" class="theme-button bg-gray-500 hover:bg-gray-600 mt-6 mx-auto w-full max-w-xs">Kembali ke Tema</button>
         </div>
@@ -206,7 +206,7 @@
                     family: {
                         title: "My Family & Loving Words",
                         words: [
-                            { english: "Grandma", indonesian: “Oma”, icon: "👵" },
+                            { english: "Grandma", indonesian: "Nenek", icon: "👵" },
                             { english: "Grandpa", indonesian: "Kakek", icon: "👴" },
                             { english: "Mommy", indonesian: "Ibu", icon: "👩" },
                             { english: "Daddy", indonesian: "Ayah", icon: "👨" },
@@ -278,10 +278,10 @@
                             { english: "Sleep", indonesian: "Tidur", icon: "😴" },
                             { english: "Eat", indonesian: "Makan", icon: "🍽️" },
                             { english: "Play", indonesian: "Bermain", icon: "🧸" },
-                            { english: "Come!", indonesian: “Mari Sini!", icon: "👉" },
+                            { english: "Come!", indonesian: "Ayo / Sini!", icon: "👉" },
                             { english: "Go", indonesian: "Jalan", icon: "🚶" },
                             { english: "Run", indonesian: "Lari", icon: "🏃‍♀️" },
-                            { english: "Let's go!", indonesian: "Ayok kita pergi!”, icon: "👋" }
+                            { english: "Let's go!", indonesian: "Ayok!", icon: "👋" }
                         ]
                     },
                     feelings: {
@@ -488,4 +488,3 @@
     </script>
 </body>
 </html>
-
